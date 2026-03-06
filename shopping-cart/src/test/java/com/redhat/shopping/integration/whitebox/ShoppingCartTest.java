@@ -21,6 +21,31 @@ public class ShoppingCartTest{
         this.cartService.clear();
     }
 
-   // @todo: add integration tests
+   @Test
+   void addingNonExistingProductInCatalogRaisesAnException(){
+       assertThrows(
+	   ProductNotFoundInCatalogException.class,
+	   () -> this.cartService.addProduct(9999, 10)
+       );
+   }
+   
+   @Test
+   void addingNonExistingProductInCartTotalItemsMatchTheInitialQuantity()
+   	  throws ProductNotFoundInCatalogException{
+	
+	this.cartService.addProduct(1, 10);
+
+	assertEquals(10, this.cartService.totalItems());
+   }
+
+   @Test
+   void addingProductThatIsInTheCartTheTotalItemsMatchTheSumOfQuantities()
+   	   throws ProductNotFoundInCatalogException{
+   	
+	this.cartService.addProduct(1, 10);
+	this.cartService.addProduct(1, 100);
+
+	assertEquals(110, this.cartService.totalItems());
+   }
 
 }
