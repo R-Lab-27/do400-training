@@ -12,6 +12,10 @@ class BasicCalculatorTest {
     void setUp() {
         calculator = new BasicCalculator();
     }
+    @Test
+    void testDividedByZero() {
+        assertEquals(Integer.MAX_VALUE, calculator.divide(1, 0));
+    }
 
     @Test
     void testSumIntegers() {
